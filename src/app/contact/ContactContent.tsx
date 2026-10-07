@@ -115,7 +115,7 @@ export function ContactContent() {
                       </div>
                       <div>
                         <h3 className="font-bold tracking-tight uppercase text-lg text-black">INSTAGRAM</h3>
-                        <a href="https://instagram.com/panther" target="_blank" rel="noopener noreferrer" className="text-black/60 hover:text-purple-600 transition-colors mt-1 block">
+                        <a href="https://www.instagram.com/panther._.wear?stkn=YW9ibDVza3EwcmZi" target="_blank" rel="noopener noreferrer" className="text-black/60 hover:text-purple-600 transition-colors mt-1 block">
                           @panther
                         </a>
                       </div>
@@ -199,7 +199,7 @@ export function ContactContent() {
           </section>
 
           <Footer
-            instagramUrl="https://instagram.com/panther"
+            instagramUrl="https://www.instagram.com/panther._.wear?stkn=YW9ibDVza3EwcmZi"
             contactEmail="contact@panther.com"
             contactPhone="+33 1 23 45 67 89"
           />

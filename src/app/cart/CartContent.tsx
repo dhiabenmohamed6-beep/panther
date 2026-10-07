@@ -173,7 +173,7 @@ export function CartContent() {
           </div>
         </main>
         <Footer
-          instagramUrl="https://instagram.com/panther"
+          instagramUrl="https://www.instagram.com/panther._.wear?stkn=YW9ibDVza3EwcmZi"
           contactEmail="contact@panther.com"
           contactPhone="+33 1 23 45 67 89"
         />

@@ -156,7 +156,7 @@ export function SettingsContent() {
               id="settings-instagram"
               value={form.instagramUrl}
               onChange={(e) => setForm({ ...form, instagramUrl: e.target.value })}
-              placeholder="https://instagram.com/panther"
+              placeholder="https://www.instagram.com/panther._.wear?stkn=YW9ibDVza3EwcmZi"
             />
           </Field>
         </div>

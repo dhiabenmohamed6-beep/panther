@@ -72,7 +72,7 @@ export const FALLBACK_SETTINGS: StorefrontSettings = {
   brandName: "PANTHER",
   logo: null,
   tagline: "BUILT DIFFERENT.",
-  instagramUrl: "https://instagram.com/panther",
+  instagramUrl: "https://www.instagram.com/panther._.wear?stkn=YW9ibDVza3EwcmZi",
   contactEmail: "contact@panther.com",
   contactPhone: null,
   shippingPrice: 9.99,

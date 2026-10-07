@@ -11,7 +11,7 @@ interface FloatingInstagramProps {
   className?: string;
 }
 
-export function FloatingInstagram({ href = "https://instagram.com/panther", className }: FloatingInstagramProps) {
+export function FloatingInstagram({ href = "https://www.instagram.com/panther._.wear?stkn=YW9ibDVza3EwcmZi", className }: FloatingInstagramProps) {
   const pathname = usePathname();
 
   if (pathname?.startsWith("/admin")) return null;
