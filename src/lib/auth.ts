@@ -9,6 +9,7 @@ const THIRTY_DAYS = 60 * 60 * 24 * 30;
 export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: "/login",
+    signOut: "/login",
     error: "/login",
   },
   session: {
