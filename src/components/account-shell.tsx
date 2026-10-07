@@ -107,7 +107,7 @@ export function AccountShell({ title, description, children, callbackUrl }: Acco
                     )}
                   </nav>
 
-                  <Button variant="outline" className="w-full" onClick={() => signOut({ callbackUrl: "/" })}>
+                  <Button variant="outline" className="w-full" onClick={() => signOut({ callbackUrl: "/login" })}>
                     <LogOut className="h-4 w-4 mr-2" aria-hidden="true" />
                     SIGN OUT
                   </Button>

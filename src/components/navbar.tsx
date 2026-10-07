@@ -169,7 +169,7 @@ export function Navbar() {
                           <button
                             type="button"
                             role="menuitem"
-                            onClick={() => signOut({ callbackUrl: "/" })}
+onClick={() => signOut({ callbackUrl: "/login" })}
                             className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-sm text-black/70 transition-colors hover:bg-red-50 hover:text-red-700"
                           >
                             <LogOut className="h-4 w-4" aria-hidden="true" />
