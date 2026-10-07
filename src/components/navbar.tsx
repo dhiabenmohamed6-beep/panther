@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ShoppingBag, User, Menu, X, LogOut, LayoutDashboard, Package, ChevronDown } from "lucide-react";
 import { useSession, signOut } from "next-auth/react";
 import { useCartStore } from "@/store/cart";
@@ -12,6 +12,7 @@ import { useHydrated } from "@/hooks/use-hydrated";
 
 export function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const { data: session, status } = useSession();
   const { getTotalItems, toggleCart } = useCartStore();
   const [scrolled, setScrolled] = React.useState(false);
@@ -166,10 +167,13 @@ export function Navbar() {
                             <Package className="h-4 w-4" aria-hidden="true" />
                             Mes commandes
                           </Link>
-                          <button
+<button
                             type="button"
                             role="menuitem"
-onClick={() => signOut({ callbackUrl: "/login" })}
+                            onClick={() => {
+                              router.push("/login");
+                              signOut({ callbackUrl: "/login" });
+                            }}
                             className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-sm text-black/70 transition-colors hover:bg-red-50 hover:text-red-700"
                           >
                             <LogOut className="h-4 w-4" aria-hidden="true" />
@@ -275,7 +279,10 @@ onClick={() => signOut({ callbackUrl: "/login" })}
                   <Button
                     variant="outline"
                     className="w-full"
-                    onClick={() => signOut({ callbackUrl: "/" })}
+                    onClick={() => {
+                      router.push("/login");
+                      signOut({ callbackUrl: "/login" });
+                    }}
                   >
                     <LogOut className="h-4 w-4" aria-hidden="true" />
                     Se déconnecter

@@ -8,7 +8,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { AnimatedBackground } from "@/components/animated-background";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Package, User, LogOut, LayoutDashboard } from "lucide-react";
 
@@ -26,6 +26,7 @@ interface AccountShellProps {
 export function AccountShell({ title, description, children, callbackUrl }: AccountShellProps) {
   const { data: session } = useSession();
   const pathname = usePathname();
+  const router = useRouter();
 
   if (!session?.user) {
     return (
@@ -107,7 +108,10 @@ export function AccountShell({ title, description, children, callbackUrl }: Acco
                     )}
                   </nav>
 
-                  <Button variant="outline" className="w-full" onClick={() => signOut({ callbackUrl: "/login" })}>
+                  <Button variant="outline" className="w-full" onClick={() => {
+                      router.push("/login");
+                      signOut({ callbackUrl: "/login" });
+                    }}>
                     <LogOut className="h-4 w-4 mr-2" aria-hidden="true" />
                     SIGN OUT
                   </Button>
