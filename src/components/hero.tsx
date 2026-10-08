@@ -81,6 +81,9 @@ export function Hero({ className }: HeroProps) {
           muted
           loop
           playsInline
+          preload="auto"
+          poster="/images/banner.png"
+          disablePictureInPicture
           className="absolute inset-0 h-full w-full object-cover opacity-40"
           aria-hidden="true"
         />
