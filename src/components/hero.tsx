@@ -4,15 +4,12 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 
 interface HeroProps {
   className?: string;
 }
 
-const BANNERS = ["/images/banner.png", "/images/banner1.png", "/images/banner2.png"];
-const SLIDE_INTERVAL_MS = 3000;
 const VIDEO_SRC = "/images/video.mp4";
 
 export function Hero({ className }: HeroProps) {
@@ -23,44 +20,6 @@ export function Hero({ className }: HeroProps) {
     }
   };
 
-  const [active, setActive] = React.useState(0);
-  const [paused, setPaused] = React.useState(false);
-  const [reducedMotion, setReducedMotion] = React.useState(() => {
-    if (typeof window !== "undefined") {
-      return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    }
-    return false;
-  });
-
-  React.useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
-    mediaQuery.addEventListener("change", handler);
-    return () => mediaQuery.removeEventListener("change", handler);
-  }, []);
-
-  React.useEffect(() => {
-    if (paused || reducedMotion) return;
-
-    const timer = window.setInterval(() => {
-      setActive((current) => (current + 1) % BANNERS.length);
-    }, SLIDE_INTERVAL_MS);
-
-    return () => window.clearInterval(timer);
-  }, [paused, reducedMotion]);
-
-  const goTo = React.useCallback((index: number) => {
-    setActive(index);
-  }, []);
-
-  const next = React.useCallback(() => {
-    setActive((current) => (current + 1) % BANNERS.length);
-  }, []);
-
-  const previous = React.useCallback(() => {
-    setActive((current) => (current - 1 + BANNERS.length) % BANNERS.length);
-  }, []);
-
   return (
     <section
       id="hero"
@@ -69,12 +28,9 @@ export function Hero({ className }: HeroProps) {
         className
       )}
       aria-labelledby="hero-title"
-      aria-roledescription="carousel"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
     >
       <div className="absolute inset-0 z-0" aria-hidden="true">
-        {/* Video background */}
+        {/* Video background - main layer */}
         <video
           src={VIDEO_SRC}
           autoPlay
@@ -84,30 +40,11 @@ export function Hero({ className }: HeroProps) {
           preload="auto"
           poster="/images/banner.png"
           disablePictureInPicture
-          className="absolute inset-0 h-full w-full object-cover opacity-40"
+          className="absolute inset-0 h-full w-full object-cover"
           aria-hidden="true"
         />
-        <div
-          className={cn(
-            "flex h-full w-full",
-            reducedMotion ? "" : "transition-transform duration-[900ms] ease-[cubic-bezier(0.65,0,0.35,1)]"
-          )}
-          style={{ transform: `translateX(-${active * 100}%)` }}
-        >
-          {BANNERS.map((src, index) => (
-            <div key={src} className="relative h-full w-full shrink-0 grow-0 basis-full">
-              <Image
-                src={src}
-                alt=""
-                fill
-                priority={index === 0}
-                sizes="100vw"
-                className="object-cover"
-              />
-            </div>
-          ))}
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+        {/* Optional: subtle overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
       </div>
 
       <div className="relative z-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
@@ -189,48 +126,7 @@ export function Hero({ className }: HeroProps) {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
           </motion.div>
-        </div>
-
-        <div className="absolute bottom-12 right-8 flex items-center gap-3">
-          <button
-            type="button"
-            onClick={previous}
-            aria-label="Previous slide"
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
-          >
-            <ChevronLeft className="h-4 w-4" aria-hidden="true" />
-          </button>
-
-          <div className="flex items-center gap-2" role="tablist" aria-label="Hero slides">
-            {BANNERS.map((src, index) => (
-              <button
-                key={src}
-                type="button"
-                role="tab"
-                aria-selected={index === active}
-                aria-label={`Show banner ${index + 1}`}
-                onClick={() => goTo(index)}
-                className={cn(
-                  "h-1 rounded-full transition-all duration-300",
-                  index === active ? "w-8 bg-white" : "w-4 bg-white/40 hover:bg-white/70"
-                )}
-              />
-            ))}
-          </div>
-
-          <button
-            type="button"
-            onClick={next}
-            aria-label="Next slide"
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
-          >
-            <ChevronRight className="h-4 w-4" aria-hidden="true" />
-          </button>
-
-          <span className="text-xs font-medium tabular-nums text-white/70">
-            {active + 1} / {BANNERS.length}
-          </span>
-        </div>
+</div>
     </section>
   );
 }
