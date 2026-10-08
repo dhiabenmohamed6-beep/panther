@@ -13,6 +13,7 @@ interface HeroProps {
 
 const BANNERS = ["/images/banner.png", "/images/banner1.png", "/images/banner2.png"];
 const SLIDE_INTERVAL_MS = 3000;
+const VIDEO_SRC = "/images/video.mp4";
 
 export function Hero({ className }: HeroProps) {
   const scrollDown = () => {
@@ -73,6 +74,16 @@ export function Hero({ className }: HeroProps) {
       onMouseLeave={() => setPaused(false)}
     >
       <div className="absolute inset-0 z-0" aria-hidden="true">
+        {/* Video background */}
+        <video
+          src={VIDEO_SRC}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover opacity-40"
+          aria-hidden="true"
+        />
         <div
           className={cn(
             "flex h-full w-full",
