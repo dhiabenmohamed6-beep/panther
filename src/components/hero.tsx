@@ -10,8 +10,6 @@ interface HeroProps {
   className?: string;
 }
 
-const VIDEO_SRC = "/images/video.mp4";
-
 export function Hero({ className }: HeroProps) {
   const scrollDown = () => {
     const nextSection = document.getElementById("product");
@@ -30,22 +28,12 @@ export function Hero({ className }: HeroProps) {
       aria-labelledby="hero-title"
     >
       <div className="absolute inset-0 z-0" aria-hidden="true">
-        {/* Video background - main layer */}
-        <video
-          src={VIDEO_SRC}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          poster="/images/banner.png"
-          disablePictureInPicture
-          controls
+        <img
+          src="/images/banner.png"
+          alt="PANTHER hero banner"
           className="absolute inset-0 h-full w-full object-cover"
-          aria-hidden="true"
         />
-        {/* Optional: subtle overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/10" />
       </div>
 
       <div className="relative z-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
@@ -116,18 +104,18 @@ export function Hero({ className }: HeroProps) {
           onKeyDown={(e) => e.key === "Enter" && scrollDown()}
           aria-label="Scroll to product"
         >
-<span className="tracking-widest uppercase">SCROLL</span>
-            <svg
-              className="w-5 h-5 animate-bounce"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-          </motion.div>
-</div>
+          <span className="tracking-widest uppercase">SCROLL</span>
+          <svg
+            className="w-5 h-5 animate-bounce"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </motion.div>
+      </div>
     </section>
   );
 }
