@@ -34,9 +34,9 @@ export function HomeContent() {
 
   const product = products[0] ?? FALLBACK_PRODUCTS[0];
   const galleryImages = [
-    { id: "g1", url: "/images/bloc1.png", alt: "Detail View 1", position: 0 },
-    { id: "g2", url: "/images/bloc2.png", alt: "Detail View 2", position: 1 },
-    { id: "g3", url: "/images/bloc3.png", alt: "Detail View 3", position: 2 },
+    { id: "b1", url: "/images/banner.png", alt: "Banner 1", position: 0 },
+    { id: "b2", url: "/images/banner1.png", alt: "Banner 2", position: 1 },
+    { id: "b3", url: "/images/banner2.png", alt: "Banner 3", position: 2 },
   ];
 
   React.useEffect(() => {
