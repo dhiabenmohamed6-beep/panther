@@ -89,7 +89,7 @@ export const FALLBACK_PRODUCTS: StorefrontProduct[] = [
     slug: "panther-oversized-tee",
     description:
       "Heavyweight premium cotton. Oversized silhouette. Built for training and the streets. One shirt. One standard.",
-    price: 89.0,
+    price: 55.0,
     compareAtPrice: null,
     discountPercent: 0,
     discountActive: false,
@@ -100,11 +100,11 @@ export const FALLBACK_PRODUCTS: StorefrontProduct[] = [
       { id: "3", url: "/images/list3.png", alt: "Side View", position: 2 },
     ],
     variants: [
-      { id: "v1", size: "S", stock: 12, price: 89, sku: "PANTHER-TEE-S" },
-      { id: "v2", size: "M", stock: 24, price: 89, sku: "PANTHER-TEE-M" },
-      { id: "v3", size: "L", stock: 31, price: 89, sku: "PANTHER-TEE-L" },
-      { id: "v4", size: "XL", stock: 18, price: 89, sku: "PANTHER-TEE-XL" },
-      { id: "v5", size: "XXL", stock: 5, price: 89, sku: "PANTHER-TEE-XXL" },
+      { id: "v1", size: "S", stock: 12, price: 55, sku: "PANTHER-TEE-S" },
+      { id: "v2", size: "M", stock: 24, price: 55, sku: "PANTHER-TEE-M" },
+      { id: "v3", size: "L", stock: 31, price: 55, sku: "PANTHER-TEE-L" },
+      { id: "v4", size: "XL", stock: 18, price: 55, sku: "PANTHER-TEE-XL" },
+      { id: "v5", size: "XXL", stock: 5, price: 55, sku: "PANTHER-TEE-XXL" },
     ],
   },
 ];

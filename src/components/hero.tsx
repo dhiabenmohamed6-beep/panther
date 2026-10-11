@@ -40,6 +40,7 @@ export function Hero({ className }: HeroProps) {
           preload="auto"
           poster="/images/banner.png"
           disablePictureInPicture
+          controls
           className="absolute inset-0 h-full w-full object-cover"
           aria-hidden="true"
         />

@@ -48,7 +48,7 @@ async function main() {
       name: "PANTHER OVERSIZED T-SHIRT",
       slug: "panther-oversized-tee",
       description: "Heavyweight premium cotton. Oversized silhouette. Built for training and the streets. One shirt. One standard.",
-      price: 89.00,
+      price: 55.00,
       status: "PUBLISHED",
       featured: true,
     },
@@ -79,11 +79,11 @@ async function main() {
 
   // Create product variants
   const variants = [
-    { size: "S", sku: "PANTHER-TEE-S", stock: 12, price: 89.00 },
-    { size: "M", sku: "PANTHER-TEE-M", stock: 24, price: 89.00 },
-    { size: "L", sku: "PANTHER-TEE-L", stock: 31, price: 89.00 },
-    { size: "XL", sku: "PANTHER-TEE-XL", stock: 18, price: 89.00 },
-    { size: "XXL", sku: "PANTHER-TEE-XXL", stock: 5, price: 89.00 },
+    { size: "S", sku: "PANTHER-TEE-S", stock: 12, price: 55.00 },
+    { size: "M", sku: "PANTHER-TEE-M", stock: 24, price: 55.00 },
+    { size: "L", sku: "PANTHER-TEE-L", stock: 31, price: 55.00 },
+    { size: "XL", sku: "PANTHER-TEE-XL", stock: 18, price: 55.00 },
+    { size: "XXL", sku: "PANTHER-TEE-XXL", stock: 5, price: 55.00 },
   ];
 
   for (const variant of variants) {

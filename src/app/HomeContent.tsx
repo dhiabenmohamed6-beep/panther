@@ -55,18 +55,19 @@ export function HomeContent() {
           <section className="w-full bg-white py-16 md:py-24" aria-label="PANTHER campaign video">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-                <div className="overflow-hidden rounded-xl border border-black/10 bg-black">
-                  <video
-                    className="block h-auto max-h-[70vh] w-full"
-                    src="/images/video.mp4"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    preload="auto"
-                    disablePictureInPicture
-                  />
-                </div>
+<div className="overflow-hidden rounded-xl border border-black/10 bg-black">
+              <video
+                className="block h-auto max-h-[70vh] w-full"
+                src="/images/video.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+                disablePictureInPicture
+                controls
+              />
+            </div>
 
                 <div>
                   <span className="text-xs font-medium tracking-widest uppercase text-purple-600">
