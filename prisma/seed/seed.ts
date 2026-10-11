@@ -43,7 +43,7 @@ async function main() {
   // Create Panther Oversized T-Shirt
   const product = await prisma.product.upsert({
     where: { slug: "panther-oversized-tee" },
-    update: {},
+    update: { price: 55.00 },
     create: {
       name: "PANTHER OVERSIZED T-SHIRT",
       slug: "panther-oversized-tee",
@@ -89,7 +89,7 @@ async function main() {
   for (const variant of variants) {
     await prisma.productVariant.upsert({
       where: { sku: variant.sku },
-      update: { stock: variant.stock },
+      update: { stock: variant.stock, price: variant.price },
       create: {
         productId: product.id,
         size: variant.size,
