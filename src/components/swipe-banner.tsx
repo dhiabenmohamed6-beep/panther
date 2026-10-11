@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -24,17 +23,14 @@ const slideVariants = {
   enter: (direction: number) => ({
     x: direction > 0 ? 1000 : -1000,
     opacity: 0,
-    scale: 1.1,
   }),
   center: {
     x: 0,
     opacity: 1,
-    scale: 1,
   },
   exit: (direction: number) => ({
     x: direction < 0 ? 1000 : -1000,
     opacity: 0,
-    scale: 0.95,
   }),
 };
 
@@ -42,16 +38,13 @@ export function SwipeBanner({
   images,
   className,
   autoPlay = true,
-  autoPlayInterval = 5000,
+  autoPlayInterval = 4000,
 }: SwipeBannerProps) {
   const [index, setIndex] = React.useState(0);
   const [direction, setDirection] = React.useState(0);
   const [isPaused, setIsPaused] = React.useState(false);
-  const touchStartX = React.useRef<number | null>(null);
-  const touchEndX = React.useRef<number | null>(null);
-  const containerRef = React.useRef<HTMLDivElement>(null);
 
-  const safeImages = images.length > 0 ? images : [{ id: "0", url: "/images/bloc1.png", alt: "Detail View", position: 0 }];
+  const safeImages = images.length > 0 ? images : [{ id: "0", url: "/images/banner.png", alt: "Banner", position: 0 }];
   const count = safeImages.length;
 
   const goNext = React.useCallback(() => {
@@ -79,30 +72,13 @@ export function SwipeBanner({
     }
   };
 
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
-    touchEndX.current = e.touches[0].clientX;
-    if (touchStartX.current === null || touchEndX.current === null) return;
-    const diff = touchStartX.current - touchEndX.current;
-    if (diff > 50) goNext();
-    if (diff < -50) goPrev();
-    touchStartX.current = null;
-    touchEndX.current = null;
-  };
-
   return (
     <div
-      ref={containerRef}
-      className={cn("relative w-full overflow-hidden", className)}
+      className={cn("relative w-full overflow-hidden rounded-xl border border-black/10 shadow-lg", className)}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
     >
-      <div className="relative aspect-[3/4] w-full">
+      <div className="relative w-full" style={{ aspectRatio: "3/4" }}>
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
             key={index}
@@ -114,7 +90,6 @@ export function SwipeBanner({
             transition={{
               x: { type: "spring", stiffness: 300, damping: 30 },
               opacity: { duration: 0.4 },
-              scale: { duration: 0.5 },
             }}
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
@@ -122,13 +97,11 @@ export function SwipeBanner({
             onDragEnd={handleDragEnd}
             className="absolute inset-0 cursor-grab active:cursor-grabbing"
           >
-            <Image
+            <img
               src={safeImages[index].url}
               alt={safeImages[index].alt}
-              fill
-              className="object-cover select-none pointer-events-none"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              priority={index === 0}
+              className="h-full w-full object-cover select-none"
+              loading={index === 0 ? "eager" : "lazy"}
             />
           </motion.div>
         </AnimatePresence>
