@@ -151,21 +151,59 @@ export function CheckoutContent() {
         <>
           <Marquee />
           <Navbar />
-          <main id="main-content" className="min-h-screen pt-16 py-12">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <div className="max-w-2xl mx-auto text-center py-20">
-                <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-green-500/10 border border-green-500/30 flex items-center justify-center">
-                  <CheckCircle className="h-12 w-12 text-green-400" />
+          <main id="main-content" className="min-h-screen flex items-center justify-center bg-white">
+            <div className="mx-auto max-w-lg w-full px-6 py-20 text-center">
+
+              {/* Animated check */}
+              <div className="relative mx-auto mb-10 w-28 h-28 flex items-center justify-center">
+                <div className="absolute inset-0 rounded-full bg-purple-600/10 animate-ping" style={{ animationDuration: "2s" }} />
+                <div className="absolute inset-2 rounded-full bg-purple-600/10" />
+                <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-purple-600 shadow-xl shadow-purple-600/30">
+                  <CheckCircle className="h-10 w-10 text-white" strokeWidth={2.5} />
                 </div>
-                <h1 className="font-bold tracking-tight uppercase text-3xl md:text-4xl text-black mb-4">ORDER CONFIRMED</h1>
-                <p className="text-black/60 mb-8">
-                  Thank you for your order{orderId ? <> — reference <span className="font-mono text-black">{orderId}</span></> : null}.
-                  You&apos;ll receive a confirmation email shortly.
-                </p>
-                <Button size="lg" asChild>
-                  <Link href="/shop">CONTINUE SHOPPING</Link>
-                </Button>
               </div>
+
+              {/* Title */}
+              <h1 className="font-black tracking-tighter uppercase text-4xl md:text-5xl text-black leading-none mb-3">
+                ORDER<br /><span className="text-purple-600">CONFIRMED</span>
+              </h1>
+
+              <p className="text-black/50 text-base mt-4 leading-relaxed">
+                Your order is in — we&apos;ll get it packed and on its way.
+              </p>
+
+              {/* Order ID badge */}
+              {orderId && (
+                <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.03] px-5 py-2.5">
+                  <span className="text-xs font-semibold uppercase tracking-widest text-black/40">Order</span>
+                  <span className="font-mono text-sm font-bold text-black">#{orderId.slice(-8).toUpperCase()}</span>
+                </div>
+              )}
+
+              <div className="my-10 h-px bg-black/8" />
+
+              {/* Steps */}
+              <div className="grid grid-cols-3 gap-4 text-center mb-10">
+                {[
+                  { emoji: "📦", label: "Order packed", sub: "Within 24h" },
+                  { emoji: "🚚", label: "Shipped", sub: "1–3 business days" },
+                  { emoji: "🏠", label: "Delivered", sub: "At your door" },
+                ].map((step) => (
+                  <div key={step.label} className="flex flex-col items-center gap-1.5">
+                    <span className="text-2xl">{step.emoji}</span>
+                    <span className="text-xs font-bold uppercase tracking-wide text-black">{step.label}</span>
+                    <span className="text-[11px] text-black/40">{step.sub}</span>
+                  </div>
+                ))}
+              </div>
+
+              <Button size="lg" className="w-full bg-black hover:bg-black/80 text-white border-0 font-bold tracking-widest uppercase py-4 rounded-xl" asChild>
+                <Link href="/shop">CONTINUE SHOPPING</Link>
+              </Button>
+
+              <p className="mt-4 text-xs text-black/30">
+                Questions? Contact us at contact@panther.com
+              </p>
             </div>
           </main>
           <Footer />
@@ -261,13 +299,19 @@ export function CheckoutContent() {
                           <Select value={field.value ?? ""} onValueChange={field.onChange}>
                             <SelectTrigger
                               id="city"
-                              className="h-11 rounded-lg border-black/15 bg-white text-sm focus:border-purple-600 focus:ring-2 focus:ring-purple-600/20"
+                              className="h-11 rounded-lg border-black/15 bg-white text-sm text-black focus:border-purple-600 focus:ring-2 focus:ring-purple-600/20 [&>span]:text-black data-[placeholder]:[&>span]:text-black/35"
                             >
-                              <SelectValue placeholder="Select governorate" />
+                              <SelectValue placeholder="Select governorate">
+                                {field.value ? (
+                                  <span className="text-black">{field.value}</span>
+                                ) : (
+                                  <span className="text-black/35">Select governorate</span>
+                                )}
+                              </SelectValue>
                             </SelectTrigger>
-                            <SelectContent className="max-h-72">
+                            <SelectContent className="max-h-72 bg-white border-black/15 text-black [&_*[data-highlighted]]:bg-purple-50 [&_*[data-highlighted]]:text-black">
                               {GOVERNORATES.map((option) => (
-                                <SelectItem key={option} value={option}>
+                                <SelectItem key={option} value={option} className="text-black focus:bg-purple-50 focus:text-black data-[highlighted]:bg-purple-50 data-[highlighted]:text-black">
                                   {option}
                                 </SelectItem>
                               ))}
