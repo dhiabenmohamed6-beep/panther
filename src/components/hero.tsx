@@ -1,16 +1,31 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
+
+const BANNER_IMAGES = [
+  { src: "/images/banner.png", alt: "PANTHER hero banner 1" },
+  { src: "/images/banner1.png", alt: "PANTHER hero banner 2" },
+  { src: "/images/banner2.png", alt: "PANTHER hero banner 3" },
+];
 
 interface HeroProps {
   className?: string;
 }
 
 export function Hero({ className }: HeroProps) {
+  const [currentIndex, setCurrentIndex] = React.useState(0);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % BANNER_IMAGES.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
+
   const scrollDown = () => {
     const nextSection = document.getElementById("product");
     if (nextSection) {
@@ -28,12 +43,33 @@ export function Hero({ className }: HeroProps) {
       aria-labelledby="hero-title"
     >
       <div className="absolute inset-0 z-0" aria-hidden="true">
-        <img
-          src="/images/banner.png"
-          alt="PANTHER hero banner"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
+        <AnimatePresence initial={false}>
+          <motion.img
+            key={currentIndex}
+            src={BANNER_IMAGES[currentIndex].src}
+            alt={BANNER_IMAGES[currentIndex].alt}
+            className="absolute inset-0 h-full w-full object-cover"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+          />
+        </AnimatePresence>
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/10" />
+        {/* Slide indicators */}
+        <div className="absolute bottom-6 right-8 z-10 flex gap-2">
+          {BANNER_IMAGES.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentIndex(i)}
+              className={cn(
+                "h-1.5 rounded-full transition-all duration-300",
+                i === currentIndex ? "w-8 bg-white" : "w-1.5 bg-white/40 hover:bg-white/70"
+              )}
+              aria-label={`Go to banner ${i + 1}`}
+            />
+          ))}
+        </div>
       </div>
 
       <div className="relative z-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">

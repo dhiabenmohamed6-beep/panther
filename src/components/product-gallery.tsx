@@ -3,7 +3,6 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { SwipeBanner } from "./swipe-banner";
 
 interface GalleryImage {
   id: string;
@@ -18,6 +17,8 @@ interface ProductGalleryProps {
 }
 
 export function ProductGallery({ images, className }: ProductGalleryProps) {
+  const sorted = [...images].sort((a, b) => a.position - b.position);
+
   return (
     <section id="gallery" className={cn("py-20 md:py-32 bg-white", className)}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -34,13 +35,30 @@ export function ProductGallery({ images, className }: ProductGalleryProps) {
           </h2>
         </motion.div>
 
-        <div className="max-w-2xl mx-auto">
-          <SwipeBanner
-            images={images}
-            autoPlay={true}
-            autoPlayInterval={4000}
-            className="rounded-xl overflow-hidden border border-black/10 shadow-lg"
-          />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
+          {sorted.map((image, i) => (
+            <motion.div
+              key={image.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{
+                duration: 0.7,
+                ease: [0.25, 0.1, 0.25, 1],
+                delay: i * 0.1,
+              }}
+              className="overflow-hidden rounded-xl border border-black/10 shadow-sm group"
+            >
+              <div className="relative aspect-[3/4] overflow-hidden bg-gray-50">
+                <img
+                  src={image.url}
+                  alt={image.alt}
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading={i === 0 ? "eager" : "lazy"}
+                />
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

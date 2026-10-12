@@ -55,26 +55,16 @@ async function main() {
   });
   console.log("✅ Product created:", product.name);
 
-  // Create product images
+  // Create product images — delete existing first to avoid duplicates on re-seed
+  await prisma.productImage.deleteMany({ where: { productId: product.id } });
   const images = [
     { url: "/images/list1.png", alt: "Front View", position: 0 },
     { url: "/images/list2.png", alt: "Back View", position: 1 },
     { url: "/images/list3.png", alt: "Side View", position: 2 },
   ];
-
-  for (const image of images) {
-    await prisma.productImage.upsert({
-      where: { id: `img-${product.id}-${image.position}` },
-      update: { url: image.url, alt: image.alt, position: image.position },
-      create: {
-        id: `img-${product.id}-${image.position}`,
-        productId: product.id,
-        url: image.url,
-        alt: image.alt,
-        position: image.position,
-      },
-    });
-  }
+  await prisma.productImage.createMany({
+    data: images.map((img) => ({ ...img, productId: product.id })),
+  });
   console.log("✅ Product images created");
 
   // Create product variants

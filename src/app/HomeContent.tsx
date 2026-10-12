@@ -25,6 +25,40 @@ import {
   useSizeGuide,
 } from "@/hooks/use-storefront";
 
+// Dedicated video component so the ref + programmatic play is isolated
+function TeeInMotionVideo() {
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+
+  React.useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = true;
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Autoplay blocked — video stays paused; user can click play
+      });
+    }
+  }, []);
+
+  return (
+    <div className="overflow-hidden rounded-xl border border-black/10 bg-black">
+      <video
+        ref={videoRef}
+        className="block h-auto max-h-[70vh] w-full"
+        src="/images/video.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        disablePictureInPicture
+        controls
+      />
+    </div>
+  );
+}
+
 export function HomeContent() {
   const [showSizeGuide, setShowSizeGuide] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -33,10 +67,12 @@ export function HomeContent() {
   const { data: sizeGuide } = useSizeGuide();
 
   const product = products[0] ?? FALLBACK_PRODUCTS[0];
+
+  // Issue 4 fix: use bloc images for the gallery section
   const galleryImages = [
-    { id: "b1", url: "/images/banner.png", alt: "Banner 1", position: 0 },
-    { id: "b2", url: "/images/banner1.png", alt: "Banner 2", position: 1 },
-    { id: "b3", url: "/images/banner2.png", alt: "Banner 3", position: 2 },
+    { id: "g1", url: "/images/bloc1.png", alt: "Gallery 1", position: 0 },
+    { id: "g2", url: "/images/bloc2.png", alt: "Gallery 2", position: 1 },
+    { id: "g3", url: "/images/bloc3.png", alt: "Gallery 3", position: 2 },
   ];
 
   React.useEffect(() => {
@@ -52,22 +88,12 @@ export function HomeContent() {
         <Navbar />
         <main id="main-content" className="min-h-screen">
           <Hero />
+
+          {/* Issue 2 fix: Tee In Motion video with guaranteed autoplay */}
           <section className="w-full bg-white py-16 md:py-24" aria-label="PANTHER campaign video">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-<div className="overflow-hidden rounded-xl border border-black/10 bg-black">
-              <video
-                className="block h-auto max-h-[70vh] w-full"
-                src="/images/video.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="auto"
-                disablePictureInPicture
-                controls
-              />
-            </div>
+                <TeeInMotionVideo />
 
                 <div>
                   <span className="text-xs font-medium tracking-widest uppercase text-purple-600">
@@ -179,8 +205,12 @@ export function HomeContent() {
             </div>
           </section>
 
+          {/* Issue 3: ProductSection uses product.images which maps to list1/list2/list3 via DB/fallback */}
           <ProductSection product={product} />
+
+          {/* Issue 4: Gallery uses bloc1.png, bloc2.png, bloc3.png */}
           <ProductGallery images={galleryImages} />
+
           <FeaturesSection />
           <BrandStory />
           <AthletesSection athletes={athletes} />

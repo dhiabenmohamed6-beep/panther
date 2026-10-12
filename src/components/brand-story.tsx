@@ -10,83 +10,155 @@ interface BrandStoryProps {
 
 export function BrandStory({ className }: BrandStoryProps) {
   return (
-    <section id="story" className={cn("relative py-20 md:py-32 bg-white overflow-hidden", className)}>
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-600/5 to-transparent" aria-hidden="true" />
-      
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-          className="text-center mb-16"
-        >
-          <span className="text-xs font-medium tracking-widest uppercase text-purple-600">PHILOSOPHY</span>
-          <h2 className="mt-2 font-bold tracking-tight uppercase text-3xl md:text-4xl lg:text-5xl text-black">
-            THE PANTHER <span className="text-purple-600">MINDSET</span>
-          </h2>
-        </motion.div>
+    <section
+      id="story"
+      className={cn("relative overflow-hidden bg-black", className)}
+    >
+      {/* Subtle purple glow top */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-500/60 to-transparent"
+        aria-hidden="true"
+      />
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-            className="space-y-8"
-          >
-            <blockquote className="border-l-4 border-purple-600 pl-6 lg:pl-8">
-              <p className="font-bold tracking-tight uppercase text-2xl md:text-3xl lg:text-4xl text-black leading-tight">
-                "IN TIMES OF CRISIS,<br />
-                THE WISE BUILD BRIDGES.<br />
-                WHILE THE FOOLISH BUILD BARRIERS."
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 min-h-[90vh]">
+
+          {/* ── LEFT: text ── */}
+          <div className="flex flex-col justify-center py-20 md:py-28 pr-0 lg:pr-16">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+            >
+              <span className="text-xs font-semibold tracking-[0.3em] uppercase text-purple-400">
+                Philosophy
+              </span>
+            </motion.div>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
+              className="mt-4 font-black tracking-tighter uppercase text-4xl sm:text-5xl lg:text-6xl text-white leading-[1.0]"
+            >
+              THE PANTHER{" "}
+              <span className="text-purple-500">MINDSET</span>
+            </motion.h2>
+
+            {/* Divider */}
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.25, ease: "easeOut" }}
+              className="mt-8 mb-8 h-px bg-white/10 origin-left"
+            />
+
+            {/* Quote 1 */}
+            <motion.blockquote
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 }}
+              className="relative pl-6 border-l-2 border-purple-500"
+            >
+              <p className="font-bold tracking-tight uppercase text-xl sm:text-2xl text-white leading-snug">
+                "In times of crisis,<br />
+                the wise build bridges.<br />
+                While the foolish build barriers."
               </p>
-            </blockquote>
+            </motion.blockquote>
 
-            <p className="text-lg md:text-xl text-black/60 leading-relaxed max-w-xl">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1], delay: 0.3 }}
+              className="mt-8 text-base sm:text-lg text-white/50 leading-relaxed max-w-lg"
+            >
               Panther was built around a simple idea: strength doesn&apos;t need to shout.
-            </p>
+              Every detail — heavyweight fabric, oversized structure, reinforced seams — is
+              designed for those who train hard and move with intention.
+            </motion.p>
 
-            <p className="text-lg md:text-xl text-black/60 leading-relaxed max-w-xl">
-              Every detail of the Panther Oversized Tee is designed around movement, comfort and presence.
-              Heavyweight fabric. Oversized structure. A silhouette designed for training and the streets.
-            </p>
-
-            <blockquote className="border-l-4 border-purple-600 pl-6 lg:pl-8 pt-4">
-              <p className="font-bold tracking-tight uppercase text-xl md:text-2xl text-black leading-tight">
-                "YOU GET TO DECIDE<br />
-                WHAT KIND OF KING<br />
-                YOU ARE GOING TO BE."
+            {/* Quote 2 */}
+            <motion.blockquote
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1], delay: 0.4 }}
+              className="mt-10 pl-6 border-l-2 border-purple-500/50"
+            >
+              <p className="font-bold tracking-tight uppercase text-lg sm:text-xl text-white/80 leading-snug">
+                "You get to decide<br />
+                what kind of king<br />
+                you are going to be."
               </p>
-            </blockquote>
-          </motion.div>
+            </motion.blockquote>
 
+            {/* Brand tags */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="mt-10 flex flex-wrap gap-3"
+            >
+              {["BUILT DIFFERENT", "HEAVYWEIGHT", "OVERSIZED", "ONE STANDARD"].map((tag) => (
+                <span
+                  key={tag}
+                  className="px-3 py-1.5 text-xs font-semibold tracking-widest uppercase text-purple-400 border border-purple-500/30 rounded-full bg-purple-500/5"
+                >
+                  {tag}
+                </span>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* ── RIGHT: image panel ── */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 }}
-            className="relative"
+            initial={{ opacity: 0, scale: 0.97 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1], delay: 0.15 }}
+            className="relative hidden lg:flex items-stretch"
           >
-            <div className="relative aspect-[4/5] bg-white border border-black/10 overflow-hidden">
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(90,8,145,0.15)_0%,_transparent_70%)]" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center px-8">
-                  <div className="w-32 h-32 mx-auto mb-6 rounded-full border-2 border-purple-600/30 flex items-center justify-center">
-                    <svg className="w-16 h-16 text-purple-600/50" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M16 2L22 8V24L16 30L10 24V8L16 2Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
-                      <path d="M16 10V22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                      <path d="M10 16H22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                    </svg>
-                  </div>
-                  <p className="font-bold tracking-widest uppercase text-2xl md:text-3xl text-black mb-2">PANTHER</p>
-                  <p className="text-black/50 tracking-wider uppercase text-sm">MINDSET</p>
-                </div>
+            {/* Vertical separator */}
+            <div className="absolute left-0 top-16 bottom-16 w-px bg-white/5" aria-hidden="true" />
+
+            <div className="relative w-full overflow-hidden">
+              {/* Dark overlay gradient over image */}
+              <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/10 to-black/60 z-10" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 z-10" />
+
+              <img
+                src="/images/Panther_ Built Different.png"
+                alt="Panther — Built Different"
+                className="h-full w-full object-cover object-center"
+              />
+
+              {/* Bottom badge */}
+              <div className="absolute bottom-10 left-10 z-20">
+                <p className="font-black tracking-widest uppercase text-3xl text-white leading-none">
+                  PANTHER
+                </p>
+                <p className="mt-1 text-xs font-semibold tracking-[0.4em] uppercase text-purple-400">
+                  Built Different
+                </p>
               </div>
             </div>
           </motion.div>
+
         </div>
       </div>
+
+      {/* Subtle purple glow bottom */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-purple-500/60 to-transparent"
+        aria-hidden="true"
+      />
     </section>
   );
 }

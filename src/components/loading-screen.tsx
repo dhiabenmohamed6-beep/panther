@@ -15,59 +15,71 @@ export function LoadingScreen({ isLoading, className }: LoadingScreenProps) {
       {isLoading && (
         <motion.div
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] } }}
+          exit={{ opacity: 0, transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] } }}
           className={cn(
             "fixed inset-0 z-[100] flex items-center justify-center bg-white",
             className
           )}
           role="status"
-          aria-label="Chargement de PANTHER"
+          aria-label="Loading PANTHER"
         >
-          <div className="text-center">
+          <div className="flex flex-col items-center">
+
+            {/* Logo — mix-blend-mode:multiply removes the white background */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={{ opacity: 0, scale: 0.75 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+              transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
               className="mb-6"
             >
-              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-20 h-20 mx-auto text-black">
-                <path d="M16 2L22 8V24L16 30L10 24V8L16 2Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-                <path d="M16 10V22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                <path d="M10 16H22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              </svg>
+              <img
+                src="/images/logo.png"
+                alt="PANTHER"
+                className="w-28 h-28 object-contain"
+                style={{ mixBlendMode: "multiply" }}
+              />
             </motion.div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+            {/* Brand name */}
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-              className="font-bold tracking-tight uppercase text-3xl md:text-4xl text-black mb-2"
+              transition={{ duration: 0.5, delay: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+              className="font-black tracking-[0.3em] uppercase text-2xl text-black"
             >
               PANTHER
-            </motion.h1>
+            </motion.p>
 
+            {/* Tagline */}
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-              className="text-black/50 tracking-wider uppercase text-sm"
+              transition={{ duration: 0.5, delay: 0.38, ease: [0.25, 0.1, 0.25, 1] }}
+              className="mt-1 text-[11px] font-semibold tracking-[0.35em] uppercase text-black/40"
             >
               BUILT DIFFERENT.
             </motion.p>
 
+            {/* Progress bar */}
             <motion.div
-              initial={{ opacity: 0, scaleX: 0 }}
-              animate={{ opacity: 1, scaleX: 1 }}
-              transition={{ duration: 1, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-              className="mt-8 w-48 mx-auto h-0.5 bg-black/10 rounded-full overflow-hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="mt-8 w-40 h-[2px] bg-black/8 rounded-full overflow-hidden"
             >
               <motion.div
-                className="h-full bg-gradient-to-r from-purple-600 to-purple-700 rounded-full"
-                animate={{ scaleX: [0, 1, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                style={{ transformOrigin: "left" }}
+                className="h-full rounded-full bg-gradient-to-r from-purple-600 to-purple-400"
+                initial={{ x: "-100%" }}
+                animate={{ x: "100%" }}
+                transition={{
+                  duration: 1.2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  repeatType: "loop",
+                }}
               />
             </motion.div>
+
           </div>
         </motion.div>
       )}
