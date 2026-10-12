@@ -161,21 +161,24 @@ type Resource<T> = {
 
 const cache = new Map<string, unknown>();
 
+// Keys that should never be cached in the in-memory store (always fresh from server)
+const NO_CACHE_KEYS = new Set(["products"]);
+
 export function clearStorefrontCache() {
   cache.clear();
 }
 
 async function load<T>(key: string, url: string, fallback: T): Promise<T> {
-  if (cache.has(key)) return cache.get(key) as T;
+  if (!NO_CACHE_KEYS.has(key) && cache.has(key)) return cache.get(key) as T;
   try {
     const res = await fetch(url, { cache: "no-store" });
     if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
     const json = await res.json();
     const value = json as T;
-    cache.set(key, value);
+    if (!NO_CACHE_KEYS.has(key)) cache.set(key, value);
     return value;
   } catch {
-    cache.set(key, fallback);
+    if (!NO_CACHE_KEYS.has(key)) cache.set(key, fallback);
     return fallback;
   }
 }

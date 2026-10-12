@@ -51,6 +51,27 @@ export async function PATCH(request: NextRequest, { params }: Params) {
   if (body.featured !== undefined) data.featured = Boolean(body.featured);
 
   const product = await prisma.product.update({ where: { id }, data });
+
+  // When the base price changes, update every variant that was using the old base price
+  // (i.e. variant.price === old base price OR variant.price === null)
+  if (body.price !== undefined) {
+    const newPrice = Number(body.price) || 0;
+    const oldPrice = existing.price;
+    if (newPrice !== oldPrice) {
+      // Update variants whose price is null (inherits base) or exactly matched the old base price
+      await prisma.productVariant.updateMany({
+        where: {
+          productId: id,
+          OR: [
+            { price: null },
+            { price: oldPrice },
+          ],
+        },
+        data: { price: newPrice },
+      });
+    }
+  }
+
   return NextResponse.json({ product });
 }
 

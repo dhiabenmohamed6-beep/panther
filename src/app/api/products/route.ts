@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -30,5 +31,11 @@ export async function GET(request: NextRequest) {
     orderBy: { createdAt: "asc" },
   });
 
-  return NextResponse.json({ products });
+  return NextResponse.json({ products }, {
+    headers: {
+      "Cache-Control": "no-store, no-cache, must-revalidate",
+      "CDN-Cache-Control": "no-store",
+      "Vercel-CDN-Cache-Control": "no-store",
+    },
+  });
 }
