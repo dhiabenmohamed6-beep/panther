@@ -389,6 +389,25 @@ function ProductFormModal({
   const set = <K extends keyof FormState>(key: K, value: FormState[K]) =>
     setForm((prev) => ({ ...prev, [key]: value }));
 
+  // When base price changes, update any variant that had the same price as the old base
+  const setPrice = (value: string) => {
+    const oldBase = Number(form.price || 0);
+    const newBase = Number(value || 0);
+    setForm((prev) => ({ ...prev, price: value }));
+    if (newBase !== oldBase) {
+      setVariants((prev) =>
+        prev.map((v) => {
+          const vPrice = v.price === null ? null : Number(v.price);
+          // If variant price was null or matched the old base price, update to null (inherit new base)
+          if (vPrice === null || vPrice === oldBase) {
+            return { ...v, price: null };
+          }
+          return v;
+        })
+      );
+    }
+  };
+
   const finalPrice =
     form.discountActive && Number(form.discountPercent) > 0
       ? Number(form.price || 0) * (1 - Number(form.discountPercent) / 100)
@@ -599,7 +618,7 @@ function ProductFormModal({
                 min="0"
                 step="0.01"
                 value={form.price}
-                onChange={(e) => set("price", e.target.value)}
+                onChange={(e) => setPrice(e.target.value)}
                 placeholder="89.00"
               />
             </Field>
